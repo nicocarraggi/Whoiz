@@ -7,21 +7,23 @@
 
 module.exports = {
 
-	create: function(req,res) {
-		Event.create({
-			name: req.param('name'),
-			organizer: req.param('user_id')
-		}, function eventCreated(err, newEvent){
-			if(err){
-				// TODO better way of handling err?
-				sails.log.debug("Event create err");
-				return res.send("Event create error.", 403);
-			}
-			return res.json({
-				id: newEvent.id
-			})
-		})
-	},
+	// TODO models changed, NEED TO change this controllers code !!!!!
+
+	// create: function(req,res) {
+	// 	Event.create({
+	// 		name: req.param('name'),
+	// 		organizer: req.param('user_id')
+	// 	}, function eventCreated(err, newEvent){
+	// 		if(err){
+	// 			// TODO better way of handling err?
+	// 			sails.log.debug("Event create err");
+	// 			return res.send("Event create error.", 403);
+	// 		}
+	// 		return res.json({
+	// 			id: newEvent.id
+	// 		})
+	// 	})
+	// },
 
 	allofuser: function(req,res) {
 		User.findOne({id: req.param('user_id')})

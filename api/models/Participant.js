@@ -9,13 +9,18 @@ module.exports = {
 
   attributes: {
 
+    // ---------
+    // RELATIONS
+    // ---------
+
     user: {
       model:'user',
+      via:'participatesTo',
       unique: true
     },
 
-    partEvent: { // TODO gives problem when called 'event' ?
-      model: 'event'
+    ofEvent: {
+      model: 'eventInstance'
     }
 
     // TODO hold extra information: evaluation, ...

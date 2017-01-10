@@ -38,7 +38,7 @@ module.exports = {
 
     subscribedToGroups: {
       collection: 'group',
-      via: 'subribers'
+      via: 'subscribers'
     },
 
     ownerOfGroups: {
@@ -51,14 +51,14 @@ module.exports = {
       via: 'organiser'
     },
 
-    participates: {
+    participatesTo: {
       collection: 'participant',
       via: 'user'
     },
 
     toJSON: function() {
       var obj = this.toObject();
-      //delete obj.token;
+      delete obj.token;
       return obj;
     }
 

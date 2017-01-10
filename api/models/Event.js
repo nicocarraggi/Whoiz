@@ -26,7 +26,8 @@ module.exports = {
 
     isPublic: {
       type: 'boolean',
-      required: true
+      required: true,
+      defaultsTo: true
     },
 
     isLocked: {
@@ -59,17 +60,16 @@ module.exports = {
       required: true
     },
 
+    // ---------
+    // RELATIONS
+    // ---------
+
     organiser: {
       model:'user'
     },
 
     group: {
       model: 'group'
-    },
-
-    participants: {
-      collection: 'participant',
-      via: 'partEvent'
     }
 
   }
