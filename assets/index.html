@@ -93,22 +93,80 @@
 
     <!-- About Section -->
     <section id="about" class="container content-section">
+        <!-- About Title & Menu -->
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>About Me</h2>
+            <div class="col-lg-3 col-lg-offset-2">
+                <h2>About</h2>
                 <!-- <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
                 <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
                 <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p> -->
             </div>
-            <div id="education" class="col-lg-8 col-lg-offset-2">
-              <h3 id="education-title">Education</h3>
-              <p id="education-text">Being very curious about computers from a very young age, I decided to study Computer Science at the university of Brussels.
-                This opened up a whole new world for me, the art of software development! This amazing journey is coming to an end as I am actually writing my master thesis.</p>
-              <h4 id="thesis-title">Making wearables fit the user</h4>
-              <p id="thesis-text">The evolution of wearable technology got me very intrigued! Unfortunately we can see that most people aren't interested (yet) in this technology.
-                The average user has no idea of how much wearable technology can improve and facilitate certain things in our daily life. That's why with my thesis I would like to propose
-                a new approach of interaction between the end user and wearables. This approach gives the user more control over how the wearable should work, making it more personal and context-aware.</p>
+            <div class="col-lg-5 about-menu">
+              <a id="about-me-a">Me</a>
+              <a id="about-education-a">Education</a>
+              <a id="about-skills-a">Skills</a>
+              <a id="about-passions-a">Passions</a>
             </div>
+        </div>
+        <!-- About Content Divs -->
+        <div class="about-divs">
+          <!-- About Me -->
+          <div id="about-me-div" class="row about-current">
+            <div class="col-lg-8 col-lg-offset-2">
+              <h3>Me</h3>
+              <p>I am the boss!</p>
+            </div>
+          </div>
+          <!-- About Education -->
+          <div id="about-education-div" class="row about-hidden">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h3 id="education-title">Education</h3>
+                <p id="education-text">Being very curious about computers from a very young age, I decided to study Computer Science at the university of Brussels.
+                  This opened up a whole new world for me, the art of software development!</p>
+                <h4 id="thesis-title">Making wearables fit the user</h4>
+                <p id="thesis-text">The evolution of wearable technology got me very intrigued! Unfortunately we can see that most people aren't interested (yet) in this technology.
+                  The average user has no idea of how much wearable technology can improve and facilitate certain things in our daily life. That's why with my thesis I would like to propose
+                  a new approach of interaction between the end user and wearables, by giving the user more control.</p>
+              </div>
+          </div>
+          <!-- About Skills -->
+          <div id="about-skills-div" class="row about-hidden">
+            <!-- About Skills Title-->
+            <div class="col-lg-8 col-lg-offset-2">
+              <h3 id="skills-title">Skills</h3>
+            </div>
+            <!-- About Skills Lists-->
+            <div class="row">
+                  <div id="technical" class="col-lg-3 col-lg-offset-2 skills-list">
+                    <h4>Technical:</h4>
+                    <ul>
+                      <li>Java</li>
+                      <li>Javascript</li>
+                      <li>Android development</li>
+                      <li>Web development (HTML, CSS, NodeJS, ...)</li>
+                      <li>Google</li>
+                    </ul>
+                  </div>
+                  <div id="personal" class="col-lg-3 skills-list">
+                    <h4>Personal:</h4>
+                    <ul class="skills-list">
+                      <li>Curious</li>
+                      <li>Motivated</li>
+                      <li>Resourceful</li>
+                      <li>Thoughtful</li>
+                      <li>Determined</li>
+                    </ul>
+                  </div>
+                  <div id="languages" class="col-lg-3 skills-list">
+                    <h4>Languages:</h4>
+                    <ul class="skills-list">
+                      <li>Dutch</li>
+                      <li>French</li>
+                      <li>English</li>
+                    </ul>
+                  </div>
+              </div>
+          </div>
         </div>
     </section>
 

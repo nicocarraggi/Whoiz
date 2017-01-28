@@ -11,7 +11,7 @@ module.exports = {
 		Group.create({
 			name: req.param('name'),
 			isPublic: req.param('isPublic'),
-			owner: req.param('user_id')
+			owner: req.param('owner')
 		}, function eventCreated(err, newGroup){
 			if(err){
 				// TODO better way of handling err?
@@ -22,6 +22,16 @@ module.exports = {
 				id: newGroup.id
 			})
 		})
+	},
+
+	publicgroups: function(req,res) {
+		Group.find({isPublic: true,
+								owner: { '!' : req.headers['userid'] }})
+		.exec(function (err, records) {
+			sails.log.debug("Group publicgroups");
+			if(err) sails.log.debug("Group publicgroups err");
+			return res.json(records);
+		});
 	},
 
 	allofuser: function(req,res) {

@@ -51,16 +51,22 @@ module.exports = {
       via: 'organiser'
     },
 
+    goesTo: {
+      collection: 'eventInstance',
+      via: 'going'
+    },
+
     participatesTo: {
       collection: 'participant',
       via: 'user'
     },
 
-    toJSON: function() {
-      var obj = this.toObject();
-      delete obj.token;
-      return obj;
-    }
+    // TODO temporary disabled for debugging
+    // toJSON: function() {
+    //   var obj = this.toObject();
+    //   delete obj.token;
+    //   return obj;
+    // }
 
   }
 };

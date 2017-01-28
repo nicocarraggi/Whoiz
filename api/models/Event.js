@@ -30,12 +30,6 @@ module.exports = {
       defaultsTo: true
     },
 
-    isLocked: {
-      type: 'boolean',
-      required: true,
-      defaultsTo: false
-    },
-
     isWithSelection: {
       type: 'boolean',
       required: true,
@@ -70,6 +64,11 @@ module.exports = {
 
     group: {
       model: 'group'
+    },
+
+    instances: {
+      collection: 'eventInstance',
+      via: 'mainevent'
     }
 
   }

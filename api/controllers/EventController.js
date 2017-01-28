@@ -7,23 +7,43 @@
 
 module.exports = {
 
-	// TODO models changed, NEED TO change this controllers code !!!!!
+	create: function(req,res) {
+		Event.create({
+			organiser: req.param('organiser'),
+			group: req.param('group'),
+			name: req.param('name'),
+			description: req.param('description'),
+			location: req.param('location'),
+			occurence: req.param('occurence'),
+			from: req.param('from'),
+			until: req.param('until')
+		}, function eventCreated(err, newEvent){
+			if(err){
+				// TODO better way of handling err?
+				sails.log.debug("Event create err");
+				return res.send("Event create error.", 403);
+			}
 
-	// create: function(req,res) {
-	// 	Event.create({
-	// 		name: req.param('name'),
-	// 		organizer: req.param('user_id')
-	// 	}, function eventCreated(err, newEvent){
-	// 		if(err){
-	// 			// TODO better way of handling err?
-	// 			sails.log.debug("Event create err");
-	// 			return res.send("Event create error.", 403);
-	// 		}
-	// 		return res.json({
-	// 			id: newEvent.id
-	// 		})
-	// 	})
-	// },
+			// make eventInstance
+			// TODO temporary make only one-time events
+			EventInstance.create({
+				from: newEvent.from,
+				until: newEvent.until,
+				mainevent: newEvent.id
+			}, function eventInstanceCreated(err, newEventInstance){
+				if(err){
+					// TODO better way of handling err?
+					sails.log.debug("EventInstance create err");
+					return res.send("EventInstance create error.", 403);
+				}
+				return res.json({
+					id: newEvent.id
+				});
+			});
+		})
+	},
+
+
 
 	allofuser: function(req,res) {
 		User.findOne({id: req.param('user_id')})

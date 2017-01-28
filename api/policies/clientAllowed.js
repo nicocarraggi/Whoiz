@@ -15,12 +15,15 @@ module.exports = function(req, res, next) {
 
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
-  if (req.param('clientKey') == '3rZGZWfB62LS1Xk0121McIyDDvQI0yC1') {
-  //if (req.headers['clientKey'] == '3rZGZWfB62LS1Xk0121McIyDDvQI0yC1') {
+  //if (req.param('clientkey') == '3rZGZWfB62LS1Xk0121McIyDDvQI0yC1') {
+  if (req.headers['clientkey'] == '3rZGZWfB62LS1Xk0121McIyDDvQI0yC1') {
     // android client !!
+    //sails.log.debug("android client");
     return next();
   }
 
+  // NOT A SUPPORTED CLIENT !!
+
   // Client is not allowed
-  return res.send("You are not permitted to perform this action.", 403);
+  return res.send("You are not permitted to perform this action. Client error!", 403);
 };

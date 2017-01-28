@@ -31,3 +31,20 @@ $(function() {
 $('.navbar-collapse ul li a').click(function() {
     $(this).closest('.collapse').collapse('toggle');
 });
+
+$(document).ready(function(){
+
+  $("#about-me-a").click(function(){aboutClick("me");});
+  $("#about-education-a").click(function(){aboutClick("education");});
+  $("#about-skills-a").click(function(){aboutClick("skills");});
+
+});
+
+function aboutClick(aboutChoice) {
+  var aboutCurrent = $('.about-current');
+  if(aboutCurrent.attr('id')!=="about-"+aboutChoice+"-div"){
+    aboutCurrent.removeClass("about-current").fadeOut("fast",function(){
+      $("#about-"+aboutChoice+"-div").addClass("about-current").fadeIn("fast");
+    });
+  }
+}

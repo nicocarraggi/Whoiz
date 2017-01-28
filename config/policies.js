@@ -28,6 +28,9 @@ module.exports.policies = {
 
   // '*': true,
 
+  // Most controllers use "hasValidToken" policy...
+  '*': ['clientAllowed','hasValidToken'],
+
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
@@ -35,13 +38,16 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  UserController: {
+  // But not LoginController, which is open to everyone (clients)...
+  LoginController: {
     '*': 'clientAllowed'
   },
 
-  EventController: {
-    '*': 'hasValidToken'
-  }
+  // TODO temporary for debugging
+  UserController: {
+    '*': ['clientAllowed','hasValidToken'],
+    all: 'clientAllowed'
+  },
 
   // RabbitController: {
 
