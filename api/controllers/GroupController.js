@@ -30,7 +30,7 @@ module.exports = {
 		.exec(function (err, records) {
 			sails.log.debug("Group publicgroups");
 			if(err) sails.log.debug("Group publicgroups err");
-			return res.json(records);
+			return res.json({"records":records});
 		});
 	},
 

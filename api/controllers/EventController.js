@@ -51,7 +51,7 @@ module.exports = {
 		.exec(function (err, user) {
 			sails.log.debug("Event allofuser"+user.events);
 			if(err) sails.log.debug("Event allofuser err");
-			return res.json(user.events);
+			return res.json({"records":user.events});
 		});
 	},
 

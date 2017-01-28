@@ -36,7 +36,7 @@ module.exports = {
 					}
 				}
 			};
-			return res.json(records);
+			return res.json({"records":records});
 		});
 	},
 
