@@ -8,6 +8,14 @@
 module.exports = {
 
 	create: function(req,res) {
+		sails.log.debug("group create allParams: ");
+		sails.log.debug(req.allParams());
+		sails.log.debug("name = "+req.param('name'));
+		sails.log.debug("description = "+req.param('description'));
+		sails.log.debug("location = "+req.param('location');
+		sails.log.debug("isPublic = "+req.param('isPublic');
+
+
 		Group.create({
 			name: req.param('name'),
 			description: req.param('description'),
