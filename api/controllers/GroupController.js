@@ -12,8 +12,8 @@ module.exports = {
 		sails.log.debug(req.allParams());
 		sails.log.debug("name = "+req.param('name'));
 		sails.log.debug("description = "+req.param('description'));
-		sails.log.debug("location = "+req.param('location');
-		sails.log.debug("isPublic = "+req.param('isPublic');
+		sails.log.debug("location = "+req.param('location'));
+		sails.log.debug("isPublic = "+req.param('isPublic'));
 
 
 		Group.create({
