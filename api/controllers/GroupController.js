@@ -10,6 +10,7 @@ module.exports = {
 	create: function(req,res) {
 		sails.log.debug("group create allParams: ");
 		sails.log.debug(req.allParams());
+		sails.log.debug("body = "+req.body);
 		sails.log.debug("name = "+req.param('name'));
 		sails.log.debug("description = "+req.param('description'));
 		sails.log.debug("location = "+req.param('location'));
