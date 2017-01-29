@@ -14,6 +14,17 @@ module.exports = {
       required: true
     },
 
+    description: {
+      type: 'string',
+      required: true
+    },
+
+    // TODO change to real location object !!
+    location: {
+      type: 'string',
+      required: true
+    },
+
     isPublic: {
       type: 'boolean',
       required: true,

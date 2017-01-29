@@ -10,17 +10,27 @@ module.exports = {
 	create: function(req,res) {
 		Group.create({
 			name: req.param('name'),
+			description: req.param('description'),
+			location: req.param('location'),
 			isPublic: req.param('isPublic'),
-			owner: req.param('owner')
+			owner: req.headers['userid']
 		}, function eventCreated(err, newGroup){
 			if(err){
 				// TODO better way of handling err?
 				sails.log.debug("Group create err");
 				return res.send("Group create error.", 403);
 			}
-			return res.json({
-				id: newGroup.id
-			})
+			// add owner in subscribers
+			newGroup.subscribers.add(req.param('owner'));
+			newGroup.save(function(err){
+				if (err) {
+					// TODO undo changes?
+					return res.serverError(err);
+				}
+				return res.json({
+					id: newGroup.id
+				});
+			});//</save()>
 		})
 	},
 
@@ -44,10 +54,42 @@ module.exports = {
 		});
 	},
 
+	subscribe: function(req,res) {
+		Group.findOne(req.param('groupid')).exec(function (err, group) {
+			if (err) {
+				return res.serverError(err);
+			}
+			group.subscribers.add(req.headers['userid']);
+			group.save(function(err){
+				if (err) {
+					// TODO undo changes?
+					return res.serverError(err);
+				}
+				return res.ok();
+			});//</save()>
+		});
+	},
+
+	unsubscribe: function(req,res) {
+		Group.findOne(req.param('groupid')).exec(function (err, group) {
+			if (err) {
+				return res.serverError(err);
+			}
+			group.subscribers.remove(req.headers['userid']);
+			group.save(function(err){
+				if (err) {
+					// TODO undo changes?
+					return res.serverError(err);
+				}
+				return res.ok();
+			});//</save()>
+		});
+	},
+
 	// TODO this is temporary for testing
 	all: function(req,res) {
 		Group.find()
-		.populate('owner')
+		.populate('subscribers')
 		.exec(function (err, records) {
 			sails.log.debug("Group all");
 			if(err) sails.log.debug("Group all err");
