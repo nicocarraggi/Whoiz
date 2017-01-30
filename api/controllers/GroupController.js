@@ -31,6 +31,7 @@ module.exports = {
 			}
 			// add owner in subscribers
 			newGroup.subscribers.add(req.headers['userid']);
+			newGroup.subscriberids.push(req.headers['userid']);
 			newGroup.save(function(err){
 				if (err) {
 					// TODO undo changes?
