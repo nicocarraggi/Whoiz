@@ -49,6 +49,11 @@ module.exports = {
       model:'user'
     },
 
+    subscriberids: {
+      type: 'array',
+      defaultsTo: []
+    },
+
     subscribers: {
       collection: 'user',
       via: 'subscribedToGroups',

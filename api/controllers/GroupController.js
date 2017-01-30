@@ -30,7 +30,7 @@ module.exports = {
 				return res.send("Group create error.", 403);
 			}
 			// add owner in subscribers
-			newGroup.subscribers.add(req.param('owner'));
+			newGroup.subscribers.add(req.headers['userid']);
 			newGroup.save(function(err){
 				if (err) {
 					// TODO undo changes?
@@ -43,18 +43,51 @@ module.exports = {
 		})
 	},
 
-	publicgroups: function(req,res) {
+	// returns all the public groups, that are not owned by the user
+	// and on which the user is not yet subscribed
+	discover: function(req,res) {
 		Group.find({isPublic: true,
 								owner: { '!' : req.headers['userid'] }})
 		.exec(function (err, records) {
-			sails.log.debug("Group publicgroups");
-			if(err) sails.log.debug("Group publicgroups err");
-			return res.json({"records":records});
+			sails.log.debug("Group discover");
+			if(err) sails.log.debug("Group discover err");
+
+			// filter out groups on which user is already subscribed...
+			// TODO bad performance ... O(m*n)
+			var filteredrecords = [];
+			if(records.length>0){
+				for (i = 0; i < records.length; i++) {
+					var gr = records[i];
+					var userid = req.headers['userid'];
+					var subscribed = false;
+					// set subscribed to true if subscriberids contains userid!
+					for (ig = 0; ig < gr.subscriberids.length; ig++) {
+						if(gr.subscriberids[ig]===userid){
+							subscribed = true;
+						}
+					}
+					// if not subscribed, add to filteredrecords
+					if(!subscribed){
+						filteredrecords.push(gr);
+					}
+				}
+			};
+			return res.json({"records":filteredrecords});
+		});
+	},
+
+	subscribed: function(req,res) {
+		User.findOne({id: req.headers['userid']})
+		.populate('subscribedToGroups')
+		.exec(function (err, user) {
+			sails.log.debug("Group subscribed "+user);
+			if(err) sails.log.debug("Group subscribed err");
+			return res.json({"records" :user.subscribedToGroups});
 		});
 	},
 
 	allofuser: function(req,res) {
-		User.findOne({id: req.param('user_id')})
+		User.findOne({id: req.headers['userid']})
 		.populate('ownerOfGroups')
 		.exec(function (err, user) {
 			sails.log.debug("Group allofuser"+user.ownerOfGroups);
@@ -69,6 +102,7 @@ module.exports = {
 				return res.serverError(err);
 			}
 			group.subscribers.add(req.headers['userid']);
+			group.subscriberids.push(req.headers['userid']);
 			group.save(function(err){
 				if (err) {
 					// TODO undo changes?
@@ -85,6 +119,7 @@ module.exports = {
 				return res.serverError(err);
 			}
 			group.subscribers.remove(req.headers['userid']);
+			group.subscriberids.pop(req.headers['userid']);
 			group.save(function(err){
 				if (err) {
 					// TODO undo changes?

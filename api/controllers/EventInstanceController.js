@@ -29,7 +29,7 @@ module.exports = {
 			    var ei = records[i];
 					var userid = req.headers['userid'];
 					ei.usergoing = false;
-					for (ig = 0; i < ei.goingids.length; i++) {
+					for (ig = 0; ig < ei.goingids.length; ig++) {
 						if(ei.goingids[ig]===userid){
 							ei.usergoing = true;
 						}
