@@ -31,6 +31,13 @@ module.exports = {
       defaultsTo: true
     },
 
+    // derived value when a user (with id) asks for groups!
+    // is set when a user gets his groups in GroupController!
+    // NOT SAVED IN DATABASE (directly)
+    isOwner: {
+      type: 'boolean'
+    },
+
     // additional info
 
     color: {
@@ -63,6 +70,18 @@ module.exports = {
     events: {
       collection: 'event',
       via: 'group'
+    },
+
+    beforeCreate: function (values, cb) {
+      // remove isOwner (temporary user-specific value)
+      var obj = this.toObject();
+      delete obj.isOwner;
+    },
+
+    beforeUpdate: function (values, cb) {
+      // remove isOwner (temporary user-specific value)
+      var obj = this.toObject();
+      delete obj.isOwner;
     }
 
   }

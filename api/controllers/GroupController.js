@@ -7,14 +7,26 @@
 
 module.exports = {
 
+	findOne: function(req,res) {
+		Group.findOne({
+		  id:req.param('id')
+		})
+		.populate('events')
+		.populate('subscribers')
+		.populate('owner')
+		.exec(function (err, group){
+		  if (err) {
+		    return res.serverError(err);
+		  }
+		  if (!group) {
+		    return res.notFound('Could not find group, sorry.');
+		  }
+			group.isOwner = (group.owner.id == req.headers['userid']);
+		  return res.json(group);
+		});
+	},
+
 	create: function(req,res) {
-		// sails.log.debug("group create allParams: ");
-		// sails.log.debug(req.allParams());
-		// sails.log.debug("body = "+req.body);
-		// sails.log.debug("name = "+req.param('name'));
-		// sails.log.debug("description = "+req.param('description'));
-		// sails.log.debug("location = "+req.param('location'));
-		// sails.log.debug("isPublic = "+req.param('isPublic'));
 		Group.create({
 			name: req.param('name'),
 			description: req.param('description'),
@@ -67,6 +79,7 @@ module.exports = {
 					}
 					// if not subscribed, add to filteredrecords
 					if(!subscribed){
+						gr.isOwner = false; // not possible to discover groups that the user owns!!
 						filteredrecords.push(gr);
 					}
 				}
@@ -81,6 +94,12 @@ module.exports = {
 		.exec(function (err, user) {
 			sails.log.debug("Group subscribed "+user);
 			if(err) sails.log.debug("Group subscribed err");
+			// add isOwner boolean!
+			for (i = 0; i < user.subscribedToGroups.length; i++){
+				var g = user.subscribedToGroups[i];
+				//sails.log.debug("isOwner g.owner="+g.owner+" & userid="+req.headers['userid']+" & ==="+(g.owner == req.headers['userid']));
+				user.subscribedToGroups[i].isOwner = (g.owner == req.headers['userid']);
+			}
 			return res.json({"records" :user.subscribedToGroups});
 		});
 	},
