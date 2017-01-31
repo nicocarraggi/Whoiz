@@ -47,15 +47,26 @@ module.exports = {
 			if (err) {
 				return res.serverError(err);
 			}
-   		ei.going.add(req.headers['userid']);
-			ei.goingids.push(req.headers['userid']);
-   		ei.save(function(err){
-				if (err) {
-					// TODO undo changes?
-					return res.serverError(err);
+			//Check if user is already going?
+			var going = false;
+			var userid = req.headers['userid'];
+			for (ig = 0; ig < ei.goingids.length; ig++) {
+				if(ei.goingids[ig]===userid){
+					going = true;
 				}
-				return res.ok();
-			});//</save()>
+			}
+			if(!going){
+				ei.going.add(userid);
+				ei.goingids.push(userid);
+	   		ei.save(function(err){
+					if (err) {
+						// TODO undo changes?
+						return res.serverError(err);
+					}
+					return res.ok();
+				});//</save()>
+			}
+			return res.ok();
  		});
 	},
 
@@ -65,18 +76,27 @@ module.exports = {
 			if (err) {
 				return res.serverError(err);
 			}
-   		ei.going.remove(req.headers['userid']);
-			ei.goingids.pop(req.headers['userid']);
-   		ei.save(function(err){
-				if (err) {
-					// TODO undo changes?
-					return res.serverError(err);
+			//Check if user is already going?
+			var going = false;
+			var userid = req.headers['userid'];
+			for (ig = 0; ig < ei.goingids.length; ig++) {
+				if(ei.goingids[ig]===userid){
+					going = true;
 				}
-				return res.ok();
-			});//</save()>
+			}
+			if(going){
+				ei.going.remove(userid);
+				ei.goingids.pop(userid);
+	   		ei.save(function(err){
+					if (err) {
+						// TODO undo changes?
+						return res.serverError(err);
+					}
+					return res.ok();
+				});//</save()>
+			}
+			return res.ok();
  		});
 	},
-
-
 
 };
