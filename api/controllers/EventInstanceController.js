@@ -42,7 +42,8 @@ module.exports = {
 	},
 
 	going: function(req,res) {
-		EventInstance.findOne(req.param('eventinstanceid')).exec(function (err, ei) {
+		EventInstance.findOne({id: req.param('eventinstanceid')})
+		.exec(function (err, ei) {
 			if (err) {
 				return res.serverError(err);
 			}
@@ -59,7 +60,8 @@ module.exports = {
 	},
 
 	notgoing: function(req,res) {
-		EventInstance.findOne(req.param('eventinstanceid')).exec(function (err, ei) {
+		EventInstance.findOne({id: req.param('eventinstanceid')})
+		.exec(function (err, ei) {
 			if (err) {
 				return res.serverError(err);
 			}

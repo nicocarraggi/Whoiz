@@ -8,14 +8,6 @@
 module.exports = {
 
 	create: function(req,res) {
-		sails.log.debug("Event create organiser "+req.param('organiser'));
-		sails.log.debug("Event create group "+req.param('group'));
-		sails.log.debug("Event create name "+req.param('name'));
-		sails.log.debug("Event create description "+req.param('description'));
-		sails.log.debug("Event create location "+req.param('location'));
-		sails.log.debug("Event create occurence "+req.param('occurence'));
-		sails.log.debug("Event create from "+req.param('from'));
-		sails.log.debug("Event create until "+req.param('until'));
 		Event.create({
 			organiser: req.param('organiser'),
 			group: req.param('group'),
