@@ -8,6 +8,14 @@
 module.exports = {
 
 	create: function(req,res) {
+		sails.log.debug("Event create organiser "+req.param('organiser'));
+		sails.log.debug("Event create group "+req.param('group'));
+		sails.log.debug("Event create name "+req.param('name'));
+		sails.log.debug("Event create description "+req.param('description'));
+		sails.log.debug("Event create location "+req.param('location'));
+		sails.log.debug("Event create occurence "+req.param('occurence'));
+		sails.log.debug("Event create from "+req.param('from'));
+		sails.log.debug("Event create until "+req.param('until'));
 		Event.create({
 			organiser: req.param('organiser'),
 			group: req.param('group'),
@@ -20,12 +28,11 @@ module.exports = {
 		}, function eventCreated(err, newEvent){
 			if(err){
 				// TODO better way of handling err?
-				sails.log.debug("Event create err");
+				sails.log.debug("Event create err "+err.status);
 				return res.send("Event create error.", 403);
 			}
-
 			// make eventInstance
-			// TODO temporary make only one-time events
+			// TODO temporary make ONLY one-time events
 			EventInstance.create({
 				from: newEvent.from,
 				until: newEvent.until,
@@ -33,7 +40,7 @@ module.exports = {
 			}, function eventInstanceCreated(err, newEventInstance){
 				if(err){
 					// TODO better way of handling err?
-					sails.log.debug("EventInstance create err");
+					sails.log.debug("EventInstance create err "+err.status);
 					return res.send("EventInstance create error.", 403);
 				}
 				return res.json({
