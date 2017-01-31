@@ -7,6 +7,7 @@
 
 module.exports = {
 
+	//TODO filter on only the subscribed groups of the user !!!
 	on: function(req,res) {
 		// month 0 = January, so month-1!
 		//var dj = new Date(req.param('dj'));
@@ -28,10 +29,10 @@ module.exports = {
 				for (i = 0; i < records.length; i++) {
 			    var ei = records[i];
 					var userid = req.headers['userid'];
-					ei.usergoing = false;
+					ei.isGoing = false;
 					for (ig = 0; ig < ei.goingids.length; ig++) {
 						if(ei.goingids[ig]===userid){
-							ei.usergoing = true;
+							ei.isGoing = true;
 						}
 					}
 				}

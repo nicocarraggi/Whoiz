@@ -26,13 +26,15 @@ module.exports = {
     },
 
     message: {
-      type: 'string'
+      type: 'string',
+      required: true,
+      defaultsTo: 'nothing'
     },
 
     // derived value when a user (with id) asks for eventinstances!
     // is set when a user gets his eventinstances in EventInstanceController!
     // NOT SAVED IN DATABASE (directly)
-    usergoing: {
+    isGoing: {
       type: 'boolean'
     },
 
@@ -62,13 +64,13 @@ module.exports = {
     beforeCreate: function (values, cb) {
       // remove usergoing (temporary user-specific value)
       var obj = this.toObject();
-      delete obj.usergoing;
+      delete obj.isGoing;
     },
 
     beforeUpdate: function (values, cb) {
       // remove usergoing (temporary user-specific value)
       var obj = this.toObject();
-      delete obj.usergoing;
+      delete obj.isGoing;
     }
 
   }
