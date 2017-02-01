@@ -46,6 +46,10 @@ module.exports = {
       model:'event'
     },
 
+    group: {
+      model:'group'
+    },
+
     goingids: {
       type: 'array',
       defaultsTo: []

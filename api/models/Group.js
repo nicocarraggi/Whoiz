@@ -72,6 +72,11 @@ module.exports = {
       via: 'group'
     },
 
+    eventinstances: {
+      collection: 'eventInstance',
+      via: 'group'
+    },
+
     beforeCreate: function (values, cb) {
       // remove isOwner (temporary user-specific value)
       var obj = this.toObject();

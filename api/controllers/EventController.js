@@ -28,7 +28,8 @@ module.exports = {
 			EventInstance.create({
 				from: newEvent.from,
 				until: newEvent.until,
-				mainevent: newEvent.id
+				mainevent: newEvent.id,
+				group: req.param('group')
 			}, function eventInstanceCreated(err, newEventInstance){
 				if(err){
 					// TODO better way of handling err?
