@@ -7,6 +7,33 @@
 
 module.exports = {
 
+	findOne: function(req,res) {
+		EventInstance.findOne({
+		  id:req.param('id')
+		})
+		.populate('going')
+		.populate('organiser')
+		.exec(function (err, ei){
+		  if (err) {
+		    return res.serverError(err);
+		  }
+		  if (!ei) {
+		    return res.notFound('Could not find eventInstance, sorry.');
+		  }
+			ei.isGoing = false;
+			var userid = req.headers['userid'];
+			if(ei.going.length>0){
+				for (i = 0; i < ei.going.length; i++) {
+			    var goingUserid = ei.going[i].id;
+					if (goingUserid == userid){
+						ei.isGoing = true;
+					}
+				}
+			};
+		  return res.json(ei);
+		});
+	},
+
 	//TODO filter on only the subscribed groups of the user !!!
 	on: function(req,res) {
 		// month 0 = January, so month-1!
