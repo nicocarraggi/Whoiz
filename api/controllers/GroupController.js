@@ -119,15 +119,28 @@ module.exports = {
 			if (err) {
 				return res.serverError(err);
 			}
-			group.subscribers.add(req.headers['userid']);
-			group.subscriberids.push(req.headers['userid']);
-			group.save(function(err){
-				if (err) {
-					// TODO undo changes?
-					return res.serverError(err);
+			// TODO check if already subscribed?
+			var subscribed = false;
+			var userid = req.headers['userid'];
+			for (i = 0; i < group.subscriberids.length; i++) {
+				if(group.subscriberids[i]===userid){
+					subscribed = true;
 				}
+			}
+			if(!subscribed){
+				group.subscribers.add(req.headers['userid']);
+				group.subscriberids.push(req.headers['userid']);
+				group.save(function(err){
+					if (err) {
+						// TODO undo changes?
+						return res.serverError(err);
+					}
+					return res.ok({subscribed: true});
+				});//</save()>
+			} else {
 				return res.ok({subscribed: true});
-			});//</save()>
+			}
+
 		});
 	},
 
@@ -136,15 +149,27 @@ module.exports = {
 			if (err) {
 				return res.serverError(err);
 			}
-			group.subscribers.remove(req.headers['userid']);
-			group.subscriberids.pop(req.headers['userid']);
-			group.save(function(err){
-				if (err) {
-					// TODO undo changes?
-					return res.serverError(err);
+			// TODO check if already subscribed?
+			var subscribed = false;
+			var userid = req.headers['userid'];
+			for (i = 0; i < group.subscriberids.length; i++) {
+				if(group.subscriberids[i]===userid){
+					subscribed = true;
 				}
+			}
+			if (subscribed){
+				group.subscribers.remove(req.headers['userid']);
+				group.subscriberids.pop(req.headers['userid']);
+				group.save(function(err){
+					if (err) {
+						// TODO undo changes?
+						return res.serverError(err);
+					}
+					return res.ok({subscribed: false});
+				});//</save()>
+			} else {
 				return res.ok({subscribed: false});
-			});//</save()>
+			}
 		});
 	},
 

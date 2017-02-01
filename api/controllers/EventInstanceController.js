@@ -92,8 +92,9 @@ module.exports = {
 					}
 					return res.ok({going: true});
 				});//</save()>
+			} else {
+				return res.ok({going: true});
 			}
-			return res.ok({going: true});
  		});
 	},
 
@@ -121,8 +122,9 @@ module.exports = {
 					}
 					return res.ok({going: false});
 				});//</save()>
+			} else {
+				return res.ok({going: false});
 			}
-			return res.ok({going: false});
  		});
 	},
 
