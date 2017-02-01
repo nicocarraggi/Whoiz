@@ -25,10 +25,10 @@ module.exports = {
 					// update token etc.
 					sails.log.debug("User facebookLogin existing user");
 
-					User.update({fbid: req.param('fbid'),
+					User.update({fbid: req.param('fbid')},{
 						token: req.param('token'),
-						lastLoggedIn: new Date()})
-						.exec(function userUpdated(err, updatedUsers){
+						lastLoggedIn: new Date()}).exec(
+							function userUpdated(err, updatedUsers){
 								if (!err && updatedUsers) {
 									return res.json({
 										id: updatedUsers[0].id
@@ -51,7 +51,7 @@ module.exports = {
 						fbid: req.param('fbid'),
 						name: req.param('name'),
 						token: req.param('token')
-        	}).exec(function userCreated(err, newUser) {
+					}, function userCreated(err, newUser) {
 						if (err) {
 							// TODO better way of handling err?
 							sails.log.debug("User facebookLogin userCreated err "+err.status);
