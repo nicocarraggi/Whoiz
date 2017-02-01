@@ -12,6 +12,7 @@ module.exports = {
 		  id:req.param('id')
 		})
 		.populate('going')
+		.populate('mainevent')
 		.exec(function (err, ei){
 		  if (err) {
 		    return res.serverError(err);
