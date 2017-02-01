@@ -7,6 +7,7 @@
 
 module.exports = {
 
+	// TODO effectively check if the Facebook token is a valid token!!
 	facebookLogin: function(req, res) {
 		User.findOne({"fbid":req.param('fbid')}).exec(
 			function(err, user){
@@ -40,7 +41,7 @@ module.exports = {
 							}
 						);
 				}	else {
-					sails.log.debug("User facebookLogin new user");
+					sails.log.debug("User facebookLogin new user "+req.param('fbid')+req.param('token')+req.param('name'));
 
 					// --------
 					// New user
@@ -55,7 +56,7 @@ module.exports = {
 					}, function userCreated(err, newUser) {
 						if (err) {
 							// TODO better way of handling err?
-							sails.log.debug("User facebookLogin userCreated err");
+							sails.log.debug("User facebookLogin userCreated err "+err.status);
 							return res.send("facebook login user created error.", 403);
 						} else if (!err && newUser) {
 							sails.log.debug("User facebookLogin user created");
