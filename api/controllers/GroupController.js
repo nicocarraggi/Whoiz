@@ -115,7 +115,7 @@ module.exports = {
 	},
 
 	subscribe: function(req,res) {
-		Group.findOne(req.param('groupid')).exec(function (err, group) {
+		Group.findOne({req.param('groupid')).exec(function (err, group) {
 			if (err) {
 				return res.serverError(err);
 			}
@@ -126,7 +126,7 @@ module.exports = {
 					// TODO undo changes?
 					return res.serverError(err);
 				}
-				return res.ok();
+				return res.ok({subscribed: true});
 			});//</save()>
 		});
 	},
@@ -143,7 +143,7 @@ module.exports = {
 					// TODO undo changes?
 					return res.serverError(err);
 				}
-				return res.ok();
+				return res.ok({subscribed: false});
 			});//</save()>
 		});
 	},

@@ -90,10 +90,10 @@ module.exports = {
 						// TODO undo changes?
 						return res.serverError(err);
 					}
-					return res.ok();
+					return res.ok({going: true});
 				});//</save()>
 			}
-			return res.ok();
+			return res.ok({going: true});
  		});
 	},
 
@@ -119,10 +119,10 @@ module.exports = {
 						// TODO undo changes?
 						return res.serverError(err);
 					}
-					return res.ok();
+					return res.ok({going: false});
 				});//</save()>
 			}
-			return res.ok();
+			return res.ok({going: false});
  		});
 	},
 
