@@ -115,7 +115,7 @@ module.exports = {
 	},
 
 	subscribe: function(req,res) {
-		Group.findOne({req.param('groupid')).exec(function (err, group) {
+		Group.findOne(req.param('groupid')).exec(function (err, group) {
 			if (err) {
 				return res.serverError(err);
 			}
