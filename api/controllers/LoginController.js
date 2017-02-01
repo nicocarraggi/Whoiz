@@ -50,7 +50,6 @@ module.exports = {
 					User.create({
 						fbid: req.param('fbid'),
 						name: req.param('name'),
-						//email: req.param('email'),
 						token: req.param('token'),
 						lastLoggedIn: new Date()
 					}, function userCreated(err, newUser) {
