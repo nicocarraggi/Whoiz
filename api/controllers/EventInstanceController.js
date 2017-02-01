@@ -12,7 +12,6 @@ module.exports = {
 		  id:req.param('id')
 		})
 		.populate('going')
-		.populate('organiser')
 		.exec(function (err, ei){
 		  if (err) {
 		    return res.serverError(err);
